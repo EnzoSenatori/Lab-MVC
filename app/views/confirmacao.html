@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Lab-MVC | Reserva confirmada{% endblock %}
+
+{% block content %}
+<section class="results-section">
+    <div class="container" style="max-width: 640px;">
+        <div class="success-panel">
+            <p class="success-panel__eyebrow">Reserva confirmada</p>
+            <h2 class="success-panel__title">Sua reserva foi realizada com sucesso.</h2>
+            <p class="success-panel__text">
+                {{ livro.titulo }} reservado em {{ unidade }}.
+                {% if reserva.usuario %} &bull; Nome: {{ reserva.usuario }}{% endif %}
+                {% if reserva.data %} &bull; Data: {{ reserva.data }}{% endif %}
+            </p>
+
+            <div class="success-code">
+                <span class="success-code__label">QR Code</span>
+                <strong>{{ reserva.qr_code }}</strong>
+            </div>
+
+            <a href="/" class="button button--primary" style="display:inline-block;text-decoration:none;text-align:center;">
+                Nova busca
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

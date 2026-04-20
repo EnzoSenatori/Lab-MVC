@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block title %}Lab-MVC | Resultados para "{{ termo }}"{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="container hero__content">
+        <p class="hero__eyebrow">Livraria MVP</p>
+        <h1 class="hero__title">Encontre seu livro</h1>
+        <p class="hero__subtitle">
+            Pesquise por título, autor ou editora e veja em quais unidades ele está disponível.
+        </p>
+
+        <form class="search" action="/busca" method="get">
+            <input
+                type="text"
+                name="termo"
+                class="search__input"
+                placeholder="Digite o nome do livro, autor ou editora"
+                aria-label="Buscar livro"
+                value="{{ termo }}"
+            >
+            <button type="submit" class="search__button">Buscar</button>
+        </form>
+    </div>
+</section>
+
+<section class="results-section">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-header__title">Resultados</h2>
+            <p class="section-header__description">
+                {% if livros %}
+                    {{ livros | length }} livro(s) encontrado(s) para "{{ termo }}".
+                {% else %}
+                    Nenhum livro encontrado para "{{ termo }}".
+                {% endif %}
+            </p>
+        </div>
+
+        {% if livros %}
+            <div class="book-grid">
+                {% for livro in livros %}
+                <article class="book-card">
+                    <div class="book-card__cover"></div>
+                    <div class="book-card__body">
+                        <span class="book-card__badge">{{ livro.badge }}</span>
+                        <h3 class="book-card__title">{{ livro.titulo }}</h3>
+                        <p class="book-card__meta book-card__author">Autor: {{ livro.autor }}</p>
+                        <p class="book-card__meta book-card__publisher">Editora: {{ livro.editora }}</p>
+                        <p class="book-card__meta book-card__stock">
+                            {{ livro.total_estoque }}
+                            {% if livro.total_estoque == 1 %}exemplar{% else %}exemplares{% endif %}
+                            em
+                            {{ livro.unidades_disponiveis | length }}
+                            {% if livro.unidades_disponiveis | length == 1 %}unidade{% else %}unidades{% endif %}
+                        </p>
+                        <div class="book-card__actions">
+                            <a href="/livros/{{ livro.id }}" class="button button--primary">Ver unidades</a>
+                        </div>
+                    </div>
+                </article>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="results-message">
+                Nenhum livro encontrado para "{{ termo }}".
+            </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
