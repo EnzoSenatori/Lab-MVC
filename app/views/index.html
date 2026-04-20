@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Lab-MVC | Livraria{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="container hero__content">
+        <p class="hero__eyebrow">Livraria MVP</p>
+        <h1 class="hero__title">Encontre seu livro</h1>
+        <p class="hero__subtitle">
+            Pesquise por título, autor ou editora e veja em quais unidades ele está disponível.
+        </p>
+
+        <form class="search" action="/busca" method="get">
+            <input
+                type="text"
+                name="termo"
+                class="search__input"
+                placeholder="Digite o nome do livro, autor ou editora"
+                aria-label="Buscar livro"
+                autofocus
+            >
+            <button type="submit" class="search__button">Buscar</button>
+        </form>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}Lab-MVC | {{ livro.titulo }}{% endblock %}
+
+{% block content %}
+<section class="results-section">
+    <div class="container">
+        <div class="section-header">
+            <div>
+                <h2 class="section-header__title">{{ livro.titulo }}</h2>
+                <p class="section-header__description">{{ livro.autor }} &bull; {{ livro.editora }}</p>
+            </div>
+            <span class="book-card__badge">{{ livro.badge }}</span>
+        </div>
+
+        <form method="post" action="/reservas">
+            <input type="hidden" name="livro_id" value="{{ livro.id }}">
+
+            <div class="reservation-fields">
+                <input
+                    type="text"
+                    name="usuario"
+                    placeholder="Seu nome (opcional)"
+                    aria-label="Nome do usuário"
+                >
+                <input
+                    type="date"
+                    name="data"
+                    aria-label="Data da reserva"
+                >
+            </div>
+
+            {% if unidades %}
+                <div class="unit-list">
+                    {% for unidade in unidades %}
+                    <article class="unit-card">
+                        <div>
+                            <h3 class="unit-card__title">{{ unidade.nome }}</h3>
+                            <p class="unit-card__meta">
+                                {% if unidade.quantidade == 1 %}
+                                    1 exemplar disponível
+                                {% else %}
+                                    {{ unidade.quantidade }} exemplares disponíveis
+                                {% endif %}
+                            </p>
+                        </div>
+                        <button type="submit" name="unidade" value="{{ unidade.nome }}" class="button button--primary">
+                            Reservar nesta unidade
+                        </button>
+                    </article>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="results-message">
+                    Nenhuma unidade com estoque disponível para este livro.
+                </div>
+            {% endif %}
+        </form>
+    </div>
+</section>
+{% endblock %}
