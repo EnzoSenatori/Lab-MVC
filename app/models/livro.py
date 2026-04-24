@@ -1,4 +1,4 @@
-from app.models.dados import livros, reservas
+from app.models.dados_stub import livros, reservas
 
 def buscar_livros(termo_busca):
     if termo_busca == "":

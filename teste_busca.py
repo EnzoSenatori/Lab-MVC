@@ -1,5 +1,5 @@
 from app.models.livro import buscar_livros, listar_unidades_disponiveis, obter_estoque, consultar_estoque_por_unidade, realizar_reserva, gerar_qr_code
-from app.models.dados import reservas
+from app.models.dados_stub import reservas
 
 def teste_busca_por_titulo():
     resultado = buscar_livros('Harry')

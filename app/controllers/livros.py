@@ -1,6 +1,6 @@
 from flask import Blueprint, request, render_template, redirect, url_for
 
-from app.models.dados import livros
+from app.models.dados_stub import livros
 from app.models.livro import (
     buscar_livros,
     listar_unidades_disponiveis,
